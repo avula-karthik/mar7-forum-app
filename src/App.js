@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useReducer } from 'react';
+import ForumContext from './ForumContext';
+import ForumForm from './ForumForm';
+import ReducerForum from './ReducerForum';
+import Forum from './Forum';
 function App() {
+  const myForums = [{}]
+  const [state, dispatch] = useReducer(ReducerForum, myForums)
+  const valuesAll = { state, dispatch }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <Forum></Forum>
+      <ForumContext.Provider value={valuesAll}>
+        <ForumForm
+          time={new Date().toString()}
+          date={new Date().getDate().toString()}
+          month={new Date().getMonth().toString()}
+          year={new Date().getFullYear().toString()}
         >
-          Learn React
-        </a>
-      </header>
+          </ForumForm>
+      </ForumContext.Provider>
+
     </div>
   );
 }
